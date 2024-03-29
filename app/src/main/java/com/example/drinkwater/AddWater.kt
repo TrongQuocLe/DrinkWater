@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddWater : AppCompatActivity() {
@@ -16,11 +17,11 @@ class AddWater : AppCompatActivity() {
             val etAmount = findViewById<EditText>(R.id.etAmount).text.toString()
 
             // Add new water to the database
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 (application as WaterApplication).db.waterDao().insert(
                     WaterEntity(
                         amount = etAmount,
-                        time = "now"
+                        time = "Time: now"
                     )
                 )
             }

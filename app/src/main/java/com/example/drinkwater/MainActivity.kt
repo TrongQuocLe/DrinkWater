@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             (application as WaterApplication).db.waterDao().getAll().collect { databaseList ->
                 databaseList.map { entity ->
-                    WaterEntity(entity.time, entity.amount)
+                    WaterEntity(entity.amount, entity.time)
                 }.also { mappedList ->
                     water.clear()
                     water.addAll(mappedList)
@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         rvWater.adapter = waterAdapter
-        rvWater.layoutManager = LinearLayoutManager(this).also {
+        rvWater.layoutManager = LinearLayoutManager(this)
+            .also {
             val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
             rvWater.addItemDecoration(dividerItemDecoration)
         }
