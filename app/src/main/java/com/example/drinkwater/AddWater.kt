@@ -20,7 +20,7 @@ class AddWater : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 (application as WaterApplication).db.waterDao().insert(
                     WaterEntity(
-                        amount = etAmount,
+                        amount = etAmount.toDouble(),
                         time = "Time: now"
                     )
                 )

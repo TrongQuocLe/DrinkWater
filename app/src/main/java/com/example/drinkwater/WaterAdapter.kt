@@ -26,7 +26,7 @@ class WaterAdapter (
     override fun onBindViewHolder(holder: WaterViewHolder, position: Int) {
         val current = water[position]
         holder.tvTime.text = current.time
-        holder.tvAmount.text = current.amount
+        holder.tvAmount.text = current.amount.toString()
     }
 
 //    internal fun setWater(water: List<WaterEntity>) {
