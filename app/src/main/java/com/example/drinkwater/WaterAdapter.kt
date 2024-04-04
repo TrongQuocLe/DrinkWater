@@ -1,6 +1,7 @@
 package com.example.drinkwater
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,8 @@ class WaterAdapter (
 
     override fun onBindViewHolder(holder: WaterViewHolder, position: Int) {
         val current = water[position]
-        holder.tvTime.text = current.time
+        holder.tvTime.text = "Time: "+ current.time.toString()
+        Log.d("WaterAdapter", current.time.toString())
         holder.tvAmount.text = current.amount.toString()
     }
 

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,14 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Set button click
-        findViewById<Button>(R.id.btnAddMore).setOnClickListener {
-            val intent = Intent(this, AddWater::class.java)
-            startActivity(intent)
-        }
+        fetchData()
 
+        // define fragments
         val listFragment: Fragment = ListFragment()
-        val summaryFragment: Fragment = SummaryFragment()
+        val summaryFragment: Fragment = SummaryFragment(water)
+
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         bottomNavigation.setOnItemSelectedListener { item ->
@@ -39,12 +39,31 @@ class MainActivity : AppCompatActivity() {
         // Set default selection
         bottomNavigation.selectedItemId = R.id.nav_listTab
 
-
+        // Set add more button click
+        findViewById<Button>(R.id.btnAddMore).setOnClickListener {
+            val intent = Intent(this, AddWater::class.java)
+            startActivity(intent)
         }
-        private fun replaceFragment(fragment: Fragment) {
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.frameLayout,fragment)
-            fragmentTransaction.commit()
+
     }
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.commit()
+    }
+
+    fun fetchData() {
+        lifecycleScope.launch {
+            (application as WaterApplication).db.waterDao().getAll().collect { databaseList ->
+                databaseList.map { entity ->
+                    WaterEntity(entity.amount, entity.time)
+                }.also { mappedList ->
+                    water.clear()
+                    water.addAll(mappedList)
+                }
+            }
+        }
+    }
+
 }

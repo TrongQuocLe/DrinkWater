@@ -30,18 +30,6 @@ class ListFragment : Fragment() {
         val rvWater: RecyclerView = view.findViewById(R.id.rvWater)
         waterAdapter = WaterAdapter(view.context, water)
 
-//        lifecycleScope.launch {
-//            (requireActivity().application as WaterApplication).db.waterDao().getAll().collect { databaseList ->
-//                databaseList.map { entity ->
-//                    WaterEntity(entity.amount, entity.time)
-//                }.also { mappedList ->
-//                    water.clear()
-//                    water.addAll(mappedList)
-//                    waterAdapter.notifyDataSetChanged()
-//                }
-//            }
-//        }
-
         rvWater.adapter = waterAdapter
         rvWater.layoutManager = LinearLayoutManager(view.context)
             .also {
@@ -52,7 +40,7 @@ class ListFragment : Fragment() {
         return view
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         lifecycleScope.launch {
             (requireActivity().application as WaterApplication).db.waterDao().getAll().collect { databaseList ->
                 databaseList.map { entity ->
