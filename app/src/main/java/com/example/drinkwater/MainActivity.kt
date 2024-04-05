@@ -1,6 +1,11 @@
 package com.example.drinkwater
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -13,11 +18,11 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private val water = mutableListOf<WaterEntity>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,16 +54,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-
-
         // Notification
-//        val CHANNEL_ID = "Drink"
-//        var notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle("Drink Water")
-//            .setContentText("Time to drink water")
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        //https://stackoverflow.com/questions/41415910/android-repeat-notification-every-day
     }
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -79,5 +76,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
