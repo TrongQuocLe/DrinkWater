@@ -59,5 +59,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
+    // graph but can't use
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    // notification
+//    implementation("androidx.core:core-ktx:2.2.0")
 }

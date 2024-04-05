@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
@@ -45,6 +49,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
+
+
+        // Notification
+//        val CHANNEL_ID = "Drink"
+//        var notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+//            .setContentTitle("Drink Water")
+//            .setContentText("Time to drink water")
+//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
     }
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
